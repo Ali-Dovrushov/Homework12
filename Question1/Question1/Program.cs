@@ -153,10 +153,10 @@ namespace Question1
                 {
                     char element = surname[i];
 
-                    if (!Char.IsLetter(element))
+                    if (!Char.IsLetter(element) || surname.Length < 3)
                     {
                         checkerSurname = false;
-                        Console.Write("Incorrect surname type, please enter correct surname: ");
+                        Console.Write("Incorrect surname type(surname can't be symbol or less 2 letters): ");
                         break;
                     }
                     else
@@ -248,7 +248,6 @@ namespace Question1
                                 Console.Write("ID card: ");
                                 int idCard = NumberCheckerForId();
 
-
                                 bool choiceForArrLinLists;
                                 Console.Write("\nThis informmation about student for \n1)ArrayList \n2)LinkedList\nChoice: ");
 
@@ -323,38 +322,50 @@ namespace Question1
                             }
                         case "3":
                             {
-                                Console.WriteLine($"Total students in ArrayList = { ArrayListStudents.Count }");
+                                Console.WriteLine($"\nTotal students in ArrayList = { ArrayListStudents.Count }");
 
+                                selectionForSwitch = true;
                                 Read();
                                 break;
                             }
                         case "4":
                             {
-                                Console.WriteLine($"Total aspirant in ArrayList = { ArrayListAspirants.Count }");
+                                Console.WriteLine($"\nTotal aspirant in ArrayList = { ArrayListAspirants.Count }");
 
+                                selectionForSwitch = true;
                                 Read();
                                 break;
                             }
                         case "5":
                             {
-                                Console.WriteLine($"Total students in LinkedList = { LinkedListStudents.Count }");
+                                Console.WriteLine($"\nTotal students in LinkedList = { LinkedListStudents.Count }");
 
+                                selectionForSwitch = true;
                                 Read();
                                 break;
                             }
                         case "6":
                             {
-                                Console.WriteLine($"Total aspirants in LinkedList = { LinkedListAspirants.Count }");
+                                Console.WriteLine($"\nTotal aspirants in LinkedList = { LinkedListAspirants.Count }");
 
+                                selectionForSwitch = true;
                                 Read();
                                 break;
                             }
                         case "7":
                             {
-                                foreach (Student studentList in ArrayListStudents)
+                                if (counterStudent > 0)
                                 {
-                                    Console.Write($"\nInformation about student\n");
-                                    studentList.Print();
+                                    foreach (Student studentList in ArrayListStudents)
+                                    {
+                                        Console.Write($"\nInformation about student\n");
+                                        studentList.Print();
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("ArrayList Students is empty");
+                                    selectionForSwitch = true;
                                 }
 
                                 Read();
@@ -362,10 +373,18 @@ namespace Question1
                             }
                         case "8":
                             {
-                                foreach (Aspirant aspirantList in ArrayListAspirants)
+                                if (counterAspirant > 0)
                                 {
-                                    Console.Write($"\nInformation about aspirant\n");
-                                    aspirantList.Print();
+                                    foreach (Aspirant aspirantList in ArrayListAspirants)
+                                    {
+                                        Console.Write($"\nInformation about aspirant\n");
+                                        aspirantList.Print();
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("ArrayList Aspirants is empty");
+                                    selectionForSwitch = true;
                                 }
 
                                 Read();
@@ -373,10 +392,18 @@ namespace Question1
                             }
                         case "9":
                             {
-                                foreach (Student studentList in LinkedListStudents)
+                                if (counterStudent > 0)
                                 {
-                                    Console.Write($"\nInformation about student\n");
-                                    studentList.Print();
+                                    foreach (Student studentList in LinkedListStudents)
+                                    {
+                                        Console.Write($"\nInformation about student\n");
+                                        studentList.Print();
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("LinkedList Students is empty");
+                                    selectionForSwitch = true;
                                 }
 
                                 Read();
@@ -384,10 +411,18 @@ namespace Question1
                             }
                         case "10":
                             {
-                                foreach (Aspirant aspirantList in LinkedListAspirants)
+                                if (counterAspirant > 0)
                                 {
-                                    Console.Write($"Information about aspirant: ");
-                                    aspirantList.Print();
+                                    foreach (Aspirant aspirantList in LinkedListAspirants)
+                                    {
+                                        Console.Write($"\nInformation about aspirant\n");
+                                        aspirantList.Print();
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("LinkedList Students is empty");
+                                    selectionForSwitch = true;
                                 }
 
                                 Read();
@@ -461,60 +496,77 @@ namespace Question1
                             }
                         case "13":
                             {
-                                bool firstLastChoice;
-                                Console.Write("Enter which student you want to delete\n1)First\n2)Last\nChoice: ");
-                                do
+                                if (counterStudent > 0)
                                 {
-                                    byte lastFirstChoice = NumberCheckerForByte1OR2();
+                                    bool firstLastChoice;
+                                    Console.Write("Enter which student you want to delete\n1)First\n2)Last\nChoice: ");
 
-                                    if (lastFirstChoice == 1)
+                                    do
                                     {
-                                        LinkedListStudents.RemoveFirst();
-                                        counterStudent--;
-                                        firstLastChoice = true;
-                                    }
-                                    else if (lastFirstChoice == 2)
-                                    {
-                                        LinkedListStudents.RemoveLast();
-                                        counterStudent--;
-                                        firstLastChoice = true;
-                                    }
-                                    else
-                                    {
-                                        Console.Write("Incorrect type, enter 1 or 2: ");
-                                        firstLastChoice = false;
-                                    }
-                                } while (firstLastChoice == false);
+                                        byte lastFirstChoice = NumberCheckerForByte1OR2();
+
+                                        if (lastFirstChoice == 1)
+                                        {
+                                            LinkedListStudents.RemoveFirst();
+                                            counterStudent--;
+                                            firstLastChoice = true;
+                                        }
+                                        else if (lastFirstChoice == 2)
+                                        {
+                                            LinkedListStudents.RemoveLast();
+                                            counterStudent--;
+                                            firstLastChoice = true;
+                                        }
+                                        else
+                                        {
+                                            Console.Write("Incorrect type, enter 1 or 2: ");
+                                            firstLastChoice = false;
+                                        }
+                                    } while (firstLastChoice == false);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("LinkedList Student is empty");
+                                    selectionForSwitch = true;
+                                }
 
                                 Read();
                                 break;
                             }
                         case "14":
                             {
-                                bool firstLastChoice;
-                                Console.Write("Enter which aspirant you want to delete\n1)First\n2)Last\nChoice: ");
-                                do
+                                if (counterAspirant > 0)
                                 {
-                                    byte lastFirstChoice = NumberCheckerForByte1OR2();
-                                    if (lastFirstChoice == 1)
-                                    {
-                                        LinkedListAspirants.RemoveFirst();
-                                        counterAspirant--;
-                                        firstLastChoice = true;
-                                    }
-                                    else if (lastFirstChoice == 2)
-                                    {
-                                        LinkedListAspirants.RemoveLast();
-                                        counterAspirant--;
-                                        firstLastChoice = true;
-                                    }
-                                    else
-                                    {
-                                        Console.Write("Incorrect type, enter 1 or 2: ");
-                                        firstLastChoice = false;
-                                    }
-                                } while (firstLastChoice == false);
+                                    bool firstLastChoice;
+                                    Console.Write("Enter which aspirant you want to delete\n1)First\n2)Last\nChoice: ");
 
+                                    do
+                                    {
+                                        byte lastFirstChoice = NumberCheckerForByte1OR2();
+                                        if (lastFirstChoice == 1)
+                                        {
+                                            LinkedListAspirants.RemoveFirst();
+                                            counterAspirant--;
+                                            firstLastChoice = true;
+                                        }
+                                        else if (lastFirstChoice == 2)
+                                        {
+                                            LinkedListAspirants.RemoveLast();
+                                            counterAspirant--;
+                                            firstLastChoice = true;
+                                        }
+                                        else
+                                        {
+                                            Console.Write("Incorrect type, enter 1 or 2: ");
+                                            firstLastChoice = false;
+                                        }
+                                    } while (firstLastChoice == false);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("LinkedList Aspirant is empty");
+                                    selectionForSwitch = true;
+                                }
                                 Read();
                                 break;
                             }
